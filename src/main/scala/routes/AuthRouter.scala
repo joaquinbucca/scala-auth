@@ -3,10 +3,10 @@ package routes
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import de.heikoseeberger.akkahttpcirce.CirceSupport
-import entities.UserEntity
-import services.AuthService
 import io.circe.generic.auto._
 import io.circe.syntax._
+import model.entities.UserEntity
+import model.services.AuthService
 
 import scala.concurrent.ExecutionContext
 

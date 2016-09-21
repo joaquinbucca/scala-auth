@@ -3,11 +3,10 @@ package routes
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import de.heikoseeberger.akkahttpcirce.CirceSupport
-import entities.UserEntityUpdate
-import services.{AuthService, UsersService}
-import io.circe.syntax._
 import io.circe.generic.auto._
-
+import io.circe.syntax._
+import model.entities.UserEntity
+import model.services.{AuthService, UsersService}
 
 import scala.concurrent.ExecutionContext
 
@@ -22,7 +21,7 @@ class UsersRouter(val authService: AuthService, usersService: UsersService)
   val route = pathPrefix("users") {
     pathEndOrSingleSlash {
       get {
-        complete(getUsers().map(_.asJson))
+        complete(getUsers.map(_.asJson))
       }
     } ~
       pathPrefix("me") {
@@ -32,7 +31,7 @@ class UsersRouter(val authService: AuthService, usersService: UsersService)
               complete(loggedUser)
             } ~
               post {
-                entity(as[UserEntityUpdate]) { userUpdate =>
+                entity(as[UserEntity]) { userUpdate =>
                   complete(updateUser(loggedUser.id.get, userUpdate).map(_.asJson))
                 }
               }
@@ -45,7 +44,7 @@ class UsersRouter(val authService: AuthService, usersService: UsersService)
             complete(getUserById(id).map(_.asJson))
           } ~
             post {
-              entity(as[UserEntityUpdate]) { userUpdate =>
+              entity(as[UserEntity]) { userUpdate =>
                 complete(updateUser(id, userUpdate).map(_.asJson))
               }
             } ~

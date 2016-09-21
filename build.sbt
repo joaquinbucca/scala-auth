@@ -23,6 +23,7 @@ libraryDependencies ++= {
   val akkaV       = "2.4.3"
   val scalaTestV  = "2.2.6"
   val circeV = "0.5.1"
+  val phantomV = "1.22.0"
 
   Seq(
     "com.typesafe.akka" %% "akka-actor" % akkaV,
@@ -37,7 +38,11 @@ libraryDependencies ++= {
     "io.circe" %% "circe-generic" % circeV,
     "io.circe" %% "circe-parser" % circeV,
 
-    "com.websudos" %% "phantom-dsl" % "1.22.0",
+    "com.websudos"        %%  "phantom-dsl"                 % phantomV,
+    "com.websudos"        %%  "phantom-reactivestreams"     % phantomV,
+    "com.websudos"        %%  "util-testing"                % "0.13.0"    % "test, provided",
+
+    "net.debasishg" %% "redisclient" % "3.2",
 
     "org.scalatest"     %% "scalatest" % scalaTestV % "test"
   )

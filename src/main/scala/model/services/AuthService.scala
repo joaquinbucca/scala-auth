@@ -1,14 +1,13 @@
-package services
+package model.services
 
-import entities.{TokenEntity, UserEntity}
-import utils.DatabaseService
+import model.entities.{TokenEntity, UserEntity}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
   * Created by joaquinbucca on 9/15/16.
   */
-class AuthService(usersService: UsersService, databaseService: DatabaseService)(implicit executionContext: ExecutionContext) {
+class AuthService(usersService: UsersService)(implicit executionContext: ExecutionContext) {
 
   def signIn(login: String, password: String): Future[Option[TokenEntity]] =
     Future(Option(new TokenEntity(userId = Option(123123l))))

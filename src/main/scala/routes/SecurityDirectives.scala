@@ -2,8 +2,8 @@ package routes
 
 import akka.http.scaladsl.server._
 import akka.http.scaladsl.server.directives.{BasicDirectives, FutureDirectives, HeaderDirectives, RouteDirectives}
-import entities.UserEntity
-import services.AuthService
+import model.entities.UserEntity
+import model.services.AuthService
 
 /**
   * Created by joaquinbucca on 9/15/16.

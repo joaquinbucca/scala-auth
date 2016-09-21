@@ -2,9 +2,9 @@ import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
+import model.services.{AuthService, UsersService}
 import routes.RouteHandler
-import services.{AuthService, UsersService}
-import utils.{Config, DatabaseService}
+import utils.Config
 
 /**
   * Created by joaquinbucca on 9/15/16.
@@ -17,12 +17,9 @@ object Main extends App with Config {
 
   val logger = Logging(system, getClass)
 
-  val databaseService = new DatabaseService()
 
-  val usersService = new UsersService(databaseService)
-  val authService = new AuthService(usersService, databaseService)
-
-  val routeHandler = new RouteHandler(authService, usersService)
+  private val usersService: UsersService = new UsersService
+  val routeHandler = new RouteHandler(usersService, new AuthService(usersService))
 
   Http().bindAndHandle(routeHandler.routes, httpHost, httpPort)
 }
