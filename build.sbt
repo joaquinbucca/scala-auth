@@ -42,7 +42,7 @@ libraryDependencies ++= {
     "com.websudos"        %%  "phantom-reactivestreams"     % phantomV,
     "com.websudos"        %%  "util-testing"                % "0.13.0"    % "test, provided",
 
-    "net.debasishg" %% "redisclient" % "3.2",
+//    "net.debasishg" %% "redisclient" % "3.2",
     "net.debasishg" %% "redisreact" % "0.8",
 
     "org.scalatest"     %% "scalatest" % scalaTestV % "test"

@@ -11,4 +11,4 @@ case class UserEntity(id: Option[Long] = None, username: String, password: Strin
   require(!password.isEmpty, "password.empty")
 }
 
-case class TokenEntity(id: Option[Long] = None, userId: Option[Long], token: String = UUID.randomUUID().toString.replaceAll("-", ""))
+case class TokenEntity(userId: Long, token: String = UUID.randomUUID().toString.replaceAll("-", ""))
