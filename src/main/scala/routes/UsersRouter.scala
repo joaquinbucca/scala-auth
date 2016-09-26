@@ -32,24 +32,24 @@ class UsersRouter(val authService: AuthService, usersService: UsersService)
             } ~
               post {
                 entity(as[UserEntity]) { userUpdate =>
-                  complete(updateUser(loggedUser.id.get, userUpdate).map(_.asJson))
+                  complete(updateUser(userUpdate).map(_.asJson))
                 }
               }
           }
         }
       } ~
-      pathPrefix(IntNumber) { id =>
+      pathPrefix(Rest) { username =>
         pathEndOrSingleSlash {
           get {
-            complete(getUserById(id).map(_.asJson))
+            complete(getUserByUsername(username).map(_.asJson))
           } ~
             post {
               entity(as[UserEntity]) { userUpdate =>
-                complete(updateUser(id, userUpdate).map(_.asJson))
+                complete(updateUser(userUpdate).map(_.asJson))
               }
             } ~
             delete {
-              onSuccess(deleteUser(id)) { ignored =>
+              onSuccess(deleteUser(username)) { ignored =>
                 complete(NoContent)
               }
             }

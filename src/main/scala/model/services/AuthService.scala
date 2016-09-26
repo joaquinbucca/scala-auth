@@ -13,7 +13,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class AuthService(usersService: UsersService)(implicit executionContext: ExecutionContext) {
 
   def signIn(login: String, password: String): Future[Option[TokenEntity]] =
-    Future(Option(TokenEntity(userId = 123123l)))
+    Future(Option(new TokenEntity(username = "asdasd")))
 
   def signUp(newUser: UserEntity): Future[TokenEntity] = {
     usersService.createUser(newUser).flatMap(user => {
@@ -29,6 +29,6 @@ class AuthService(usersService: UsersService)(implicit executionContext: Executi
     case None => return Future(None)
   }
 
-  def createToken(user: UserEntity): Future[TokenEntity] = Future(TokenEntity(userId = user.id.get))
+  def createToken(user: UserEntity): Future[TokenEntity] = Future(new TokenEntity(username = user.username))
 
 }

@@ -13,16 +13,13 @@ class UsersService(implicit executionContext: ExecutionContext) {
 
   def getUsers: Future[Seq[UserEntity]] = usersModel.getAll
 
-  def getUserById(id: Long): Future[Option[UserEntity]] = usersModel.getById(id)
-
-  //todo: implement search by username then
-  def getUserByLogin(login: String): Future[Option[UserEntity]] = usersModel.getById(12l)
+  def getUserByUsername(login: String): Future[Option[UserEntity]] = usersModel.getByUsername(login)
 
   def createUser(user: UserEntity): Future[UserEntity] = usersModel.store(user).map( r => usersModel.fromResultSet(r))
 
-  def updateUser(id: Long, userUpdate: UserEntity): Future[UserEntity] = usersModel.store(userUpdate).map( r => usersModel.fromResultSet(r))
+  def updateUser(userUpdate: UserEntity): Future[UserEntity] = usersModel.store(userUpdate).map( r => usersModel.fromResultSet(r))
 
-  def deleteUser(id: Long): Future[Int] = usersModel.deleteById(id).map(rs => id.toInt)
+  def deleteUser(username: String): Future[String] = usersModel.deleteByUsername(username).map(rs => username)
 
 }
 

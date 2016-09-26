@@ -11,10 +11,10 @@ object DbConnector {
 
   val config = ConfigFactory.load()
 
-  val hosts = config.getStringList("cassandra.host") //todo: add them to app conf
+  val hosts = config.getStringList("cassandra.host")
   val inets = hosts.map(InetAddress.getByName)
 
-  val keyspace: String = "KeySpace"
+  val keySpace: String = "Users"
 //  val keyspace: String = config.getString("cassandra.keyspace")
 
   /**
@@ -26,7 +26,7 @@ object DbConnector {
       config.getString("cassandra.username"),
       config.getString("cassandra.password")
     )
-  ).keySpace(keyspace)
+  ).keySpace(keySpace)
 
   /**
     * Create an embedded connector, used for testing purposes
