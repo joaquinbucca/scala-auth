@@ -25,7 +25,7 @@ class AuthService(usersService: UsersService)(implicit executionContext: Executi
   }
 
   def authenticate(token: String): Future[Option[UserEntity]] = redis.get[TokenEntity](token).flatMap {
-    case Some(t) => usersService.getUserById(t.userId)
+    case Some(t) => usersService.getUserByUsername(t.username)
     case None => return Future(None)
   }
 
