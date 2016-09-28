@@ -9,6 +9,7 @@ import model.entities.UserEntity
 import model.services.AuthService
 
 import scala.concurrent.ExecutionContext
+import scala.util.Try
 
 /**
   * Created by joaquinbucca on 9/15/16.
@@ -22,7 +23,10 @@ class AuthRouter(val authService: AuthService)(implicit executionContext: Execut
       pathEndOrSingleSlash {
         post {
           entity(as[LoginPassword]) { loginPassword =>
-            complete(signIn(loginPassword.login, loginPassword.password).map(_.asJson))
+            Try(signIn(loginPassword.login, loginPassword.password)) match {
+              case scala.util.Success(tk) => complete(tk.map(_.asJson))
+              case scala.util.Failure(err) => failWith(err)
+            }
           }
         }
       }
