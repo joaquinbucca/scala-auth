@@ -6,10 +6,10 @@ import com.websudos.phantom.dsl.KeySpaceDef
 import model.db.ProductionDb
 import model.services.{AuthService, UsersService}
 import routes.RouteHandler
-import utils.{Config, DbConnector}
+import utils.Config
 
 import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 /**
   * Created by joaquinbucca on 9/15/16.
@@ -31,7 +31,7 @@ object Main extends App with Config {
   private val connector: KeySpaceDef = ProductionDb.connector
   implicit val keySpace = connector.provider.space
   implicit val session = connector.session
-  Await.result(ProductionDb.autocreate.future(), Duration.apply(10, "seconds"))
+  Await.result(ProductionDb.autocreate.future(), 10 seconds)
 
   Http().bindAndHandle(routeHandler.routes, httpHost, httpPort)
 }
