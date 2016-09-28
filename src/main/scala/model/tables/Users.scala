@@ -5,6 +5,7 @@ import model.entities.UserEntity
 
 import scala.concurrent.Future
 import com.websudos.phantom.dsl._
+import scala.collection.JavaConversions._
 
 /**
   * Created by joaquinbucca on 9/16/16.
@@ -17,7 +18,15 @@ class Users extends CassandraTable[ConcreteUsers, UserEntity] {
 //  object registrationDate extends DateTimeColumn(this)
 
   override def fromRow(r: Row): UserEntity = UserEntity(username(r), password(r))
-  def fromResultSet(r: ResultSet): UserEntity = fromRow(r.one())
+  def fromResultSet(r: ResultSet): UserEntity = {
+    println("###########################################################")
+
+    for (row <- r.all()) println(row)
+
+    println("###########################################################")
+
+    fromRow(r.one())
+  }
 }
 
 abstract class ConcreteUsers extends Users with RootConnector {

@@ -15,7 +15,10 @@ class UsersService(implicit executionContext: ExecutionContext) {
 
   def getUserByUsername(login: String): Future[Option[UserEntity]] = usersModel.getByUsername(login)
 
-  def createUser(user: UserEntity): Future[UserEntity] = usersModel.store(user).map( r => usersModel.fromResultSet(r))
+  def createUser(user: UserEntity): Future[UserEntity] = {
+    usersModel.store(user)
+    usersModel.getByUsername(user.username).map( f => f.get )
+  }
 
   def updateUser(userUpdate: UserEntity): Future[UserEntity] = usersModel.store(userUpdate).map( r => usersModel.fromResultSet(r))
 
