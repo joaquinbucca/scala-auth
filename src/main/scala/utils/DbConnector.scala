@@ -11,6 +11,7 @@ object DbConnector {
 
   val config = ConfigFactory.load()
 
+  //  val hosts = Await.result(ConsulHandler.getServicesAddressesByType("CASSANDRA").map(a => a), 10 seconds)
   val hosts = config.getStringList("cassandra.host")
   val inets = hosts.map(InetAddress.getByName)
 

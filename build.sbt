@@ -45,6 +45,8 @@ libraryDependencies ++= {
 //    "net.debasishg" %% "redisclient" % "3.2",
     "net.debasishg" %% "redisreact" % "0.8",
 
+    "com.codacy" %% "scala-consul" % "1.1.0",
+
     "org.scalatest"     %% "scalatest" % scalaTestV % "test"
   )
 }

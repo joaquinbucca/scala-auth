@@ -1,6 +1,7 @@
 package routes
 
 import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route
 import model.services.{AuthService, UsersService}
 
 import scala.concurrent.ExecutionContext
@@ -13,11 +14,19 @@ class RouteHandler(usersService: UsersService, authService: AuthService)(implici
   val authRouter = new AuthRouter(authService)
   val usersRouter = new UsersRouter(authService, usersService)
 
+  val healthRoute: Route = pathPrefix("health") {
+    pathEndOrSingleSlash {
+      get {
+        complete("true")
+      }
+    }
+  }
+
   val routes = {
     logRequestResult("akka-http-microservice") {
       authRouter.route ~
-      usersRouter.route
-
+      usersRouter.route  ~
+      healthRoute
     }
   }
 
