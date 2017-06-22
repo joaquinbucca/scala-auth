@@ -1,23 +1,27 @@
-# Akka HTTP microservice Authenthication example
+# Akka HTTP microservice Authenthication
 
+To run it:
+ 
+ * Install cassandra and run it.
+ * Install redis and run it (`redis-server` & then check with `redis-cli`).
+ * `sbt run` 
+ 
+ This will get your auth service up on port 9000.
 
-This project is to show how easy is to develop a simple microservice, in this case an authenthication one:
+The service has:
 
-* starting standalone HTTP server (Main),
-* handling file-based configuration (Config, application.conf),
-* routing (see routes package),
-* deconstructing requests,
-* querying database through services,
-* easy way to use Cassandra or whatever Db you please,
-* nice way to structure your microservice
+* User routes, to read, write and delete Users.
+* Auth routes to login and signup
+* Security authenthication token.
+
+Uses redis to store sessions.
+
+Uses cassandra to store users.
 
 
 ## Testing
 
-This is missing but coming soon.
+No tests yet
 
-## Author & license
-
-This project is totally open source, if there is any question then do it via github, thanks.
 
 Joaquin Bucca

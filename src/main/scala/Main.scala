@@ -6,7 +6,7 @@ import com.websudos.phantom.dsl.KeySpaceDef
 import model.db.ProductionDb
 import model.services.{AuthService, UsersService}
 import routes.RouteHandler
-import utils.{Config, ConsulHandler}
+import utils.Config
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -32,7 +32,6 @@ object Main extends App with Config {
   implicit val keySpace = connector.provider.space
   implicit val session = connector.session
 
-  ConsulHandler.register("auth", "AUTH")
 
   Await.result(ProductionDb.autocreate.future(), 10 seconds)
 
